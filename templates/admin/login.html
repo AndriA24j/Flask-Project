@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <!-- Brand -->
+      <aside class="brand">
+        <a href="{{ url_for('home') }}" class="brand-logo">audiophile</a>
+
+        <div class="brand-body">
+          <p class="brand-eyebrow">Admin Portal</p>
+          <h2 class="brand-heading">
+            Manage your <em>store</em> with precision.
+          </h2>
+          <p class="brand-sub">
+            Full control over products, orders, and customers — all in one
+            place.
+          </p>
+        </div>
+
+        <p class="brand-foot">&copy; 2024 Audiophile. All rights reserved.</p>
+      </aside>
+
+      <!-- Form -->
+      <div class="form-side">
+        <div class="form-card">
+          <h1>Welcome back</h1>
+          <p class="form-subtitle">Sign in to the admin dashboard.</p>
+
+          <!-- FLASH MESSAGES -->
+          {% with messages = get_flashed_messages() %} {% if messages %} {% for
+          msg in messages %}
+          <div style="color: red; margin-bottom: 10px">{{ msg }}</div>
+          {% endfor %} {% endif %} {% endwith %}
+
+          <!-- LOGIN FORM -->
+          <form method="POST">
+            <!-- Email -->
+            <div class="field">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="admin@audiophile.com"
+                autocomplete="email"
+              />
+            </div>
+
+            <!-- Password -->
+            <div class="field">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+            </div>
+
+            <!-- Submit -->
+            <button class="btn-submit" type="submit">Sign In</button>
+
+            <a href="{{ url_for('home') }}" class="back"> Back to home </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% block title %}My Website{% endblock %} {% block
+styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="s2">
+  <div class="wrap">
+    <div class="left">
+      <span>NEW PRODUCT</span>
+      <h1>XX99 Mark II Headphones</h1>
+      <p>
+        Experience natural, lifelike audio and exceptional build quality made
+        for the passionate music enthusiast.
+      </p>
+      <button><a href="/headphones">See Product</a></button>
+    </div>
+    <div class="right">
+      <img
+        src="{{ url_for('static', filename='assets/home/desktop/f84f9d208c3eec8bfe1a8f3b55088c0fade7baa5 (1).png') }}"
+        alt=""
+      />
+    </div>
+  </div>
+</section>
+<section class="s3">
+  <div class="card-list">
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-headphones.png') }}"
+        alt=""
+      />
+      <h2>HEADPHONES</h2>
+      <a href="/headphones">SHOP</a>
+    </div>
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-speakers.png') }}"
+        alt=""
+      />
+      <h2>SPEAKERS</h2>
+      <a href="{{ url_for('speakers') }}">SHOP</a>
+    </div>
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-earphones.png') }}"
+        alt=""
+      />
+      <h2>EARPHONES</h2>
+      <a href="{{ url_for('earphones') }}">SHOP</a>
+    </div>
+  </div>
+</section>
+<section class="s4">
+  <div class="cards">
+    <div class="long-card">
+      <div class="image">
+        <img
+          src="{{ url_for('static', filename='assets/home/desktop/image-speaker-zx9.png') }}"
+          alt="zx9"
+        />
+      </div>
+      <div class="txt">
+        <h2>ZX7 SPEAKER</h2>
+        <p>
+          Upgrade to premium speakers that are phenomenally built to deliver
+          truly remarkable sound.
+        </p>
+        <button>
+          <a
+            href="{{ url_for('product', slug='zx7-speaker') }}"
+            class="product-item"
+            >See Product</a
+          >
+        </button>
+      </div>
+    </div>
+    <div class="long-card1">
+      <div class="txt">
+        <h2>ZX9 SPEAKER</h2>
+        <button>
+          <a
+            href="{{ url_for('product',  slug='zx9-speaker') }}"
+            class="product-item"
+            >See Product</a
+          >
+        </button>
+      </div>
+    </div>
+    <div class="long-card2">
+      <div class="long-image">
+        <img
+          src="{{ url_for('static', filename='assets/home/desktop/image-earphones-yx1.jpg') }}"
+          alt="earphones"
+        />
+      </div>
+      <div class="long-txt">
+        <h2>YX1 EARPHONES</h2>
+        <button>
+          <a
+            href="{{ url_for('product',  slug='yx1-wireless') }}"
+            class="product-item"
+            >See Product</a
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="s5">
+  <div class="container">
+    <div class="text">
+      <h3>Bringing you the <span>best</span> audio gear</h3>
+      <p>
+        Located at the heart of New York City, Audiophile is the premier store
+        for high end headphones, earphones, speakers, and audio accessories. We
+        have a large showroom and luxury demonstration rooms available for you
+        to browse and experience a wide range of our products. Stop by our store
+        to meet some of the fantastic people who make Audiophile the best place
+        to buy your portable audio equipment.
+      </p>
+    </div>
+    <div class="pic">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-best-gear.jpg') }}"
+        alt="gear"
+      />
+    </div>
+  </div>
+</section>
+{%endblock%}

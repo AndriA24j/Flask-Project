@@ -1,0 +1,407 @@
+.wrap {
+  background-color: #0e0e0e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 70px;
+  padding-right: 70px;
+  border-radius: 0 0 20px 20px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.left span {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 50%;
+  letter-spacing: 10px;
+}
+
+.left h1 {
+  color: #ffffff;
+  font-size: 56px;
+  line-height: 58px;
+}
+
+.left p {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 25px;
+  opacity: 75%;
+}
+
+.left button {
+  background-color: #d87d4a;
+  width: 160px;
+  height: 48px;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.right img {
+  width: 520px;
+  height: 622px;
+}
+
+.s3,
+.s4,
+.s5 {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 120px;
+}
+
+.card {
+  width: 350px;
+  height: 204px;
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 12px;
+}
+
+.card:hover {
+  width: 350px;
+  height: 220px;
+  transition: 0.6s;
+  background-color: #d87d4a;
+}
+.s2 {
+  background-color: #0e0e0e;
+  padding-left: 120px;
+  padding-right: 120px;
+}
+.card img {
+  width: 151px;
+  height: 160px;
+  margin-top: -50px;
+}
+
+.card a {
+  color: #000000;
+  opacity: 50%;
+  font-size: 13px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 75px;
+}
+
+.long-card {
+  width: 1155px;
+  background-color: #d87d4a;
+  display: flex;
+  flex-direction: row;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.long-card h2 {
+  font-size: 48px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.long-card p {
+  font-size: 17px;
+  line-height: 25px;
+  opacity: 50%;
+  color: #ffffff;
+}
+
+.long-card button {
+  background-color: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  border: none;
+  font-size: 18px;
+  padding: 8px;
+}
+
+.long-card button a,
+.long-card1 button a,
+.long-card2 button a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.long-card button:hover {
+  background-color: transparent;
+  color: #000000;
+  transition: 1s;
+}
+
+.long-card img {
+  width: 410px;
+  height: 493px;
+}
+
+.txt {
+  width: 500px;
+}
+
+.long-card1 {
+  width: 1155px;
+  background-color: #d87d4a;
+  display: flex;
+  flex-direction: row-reverse;
+  border-radius: 16px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  background: url("../assets/home/desktop/image-speaker-zx7.jpg");
+  height: 300px;
+}
+
+.long-card1 h2 {
+  font-size: 48px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.long-card1 button {
+  background-color: #000000;
+  border-radius: 10px;
+  color: #ffffff;
+  border: none;
+  font-size: 18px;
+  padding: 8px;
+}
+
+.long-card1 button:hover {
+  background-color: transparent;
+  color: #000000;
+  transition: 1s;
+}
+
+.long-image img {
+  width: 552px;
+  height: 320px;
+  border-radius: 20px;
+}
+
+.long-txt {
+  background-color: #f1f1f1;
+  width: 552px;
+  height: 320px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.long-card2 {
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  gap: 50px;
+}
+
+.long-card2 h2 {
+  font-size: 48px;
+}
+
+.long-card2 button {
+  padding: 8px;
+  font-size: 18px;
+}
+
+.long-card2 button:hover {
+  background-color: #000000;
+  transition: 1s;
+  color: #ffffff;
+}
+
+.container {
+  margin-left: 70px;
+  margin-right: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+
+.container h3 {
+  font-size: 49px;
+  font-weight: bold;
+  line-height: 44px;
+}
+
+.container span {
+  font-size: 49px;
+  color: #d87d4a;
+}
+
+.text {
+  width: 445px;
+  height: 295px;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.text p {
+  color: #000000;
+  font-weight: 800;
+  opacity: 50%;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    flex-direction: column;
+    padding: 32px 20px 40px;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .left {
+    align-items: center;
+  }
+
+  .left span {
+    letter-spacing: 8px;
+  }
+
+  .left h1 {
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .left p {
+    max-width: 32rem;
+  }
+
+  .right img {
+    width: min(100%, 320px);
+    height: auto;
+  }
+
+  .s3,
+  .s4,
+  .s5 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .card-list {
+    flex-direction: column;
+    gap: 68px;
+    margin-top: 80px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 327px;
+    height: 204px;
+  }
+
+  .card:hover {
+    width: 100%;
+    height: 204px;
+  }
+
+  .cards {
+    margin-top: 56px;
+  }
+
+  .long-card,
+  .long-card1,
+  .long-card2,
+  .container {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .long-card {
+    padding: 40px 20px;
+    gap: 24px;
+  }
+
+  .long-card img {
+    width: min(100%, 220px);
+    height: auto;
+  }
+
+  .txt {
+    width: 100%;
+  }
+
+  .long-card1 {
+    padding: 24px 20px;
+    height: auto;
+    min-height: 320px;
+    background: url("../assets/home/mobile/image-speaker-zx7.jpg") center/cover
+      no-repeat;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .long-card1 h2 {
+    font-size: 32px;
+  }
+
+  .long-card2 {
+    gap: 24px;
+  }
+
+  .long-image,
+  .long-txt {
+    width: 100%;
+    height: auto;
+  }
+
+  .long-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .long-txt {
+    padding: 32px 20px;
+  }
+
+  .container {
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  .container h3,
+  .container span {
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .text {
+    width: 100%;
+    height: auto;
+  }
+}

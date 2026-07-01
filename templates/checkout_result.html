@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block title %} {% if success %}Order Successful{%
+else %}Order Failed{% endif %} {% endblock %} {% block styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/checkout.css') }}"
+/>
+
+{% endblock %} {% block content %}
+<main class="result-page">
+  <div class="result-container">
+    {# CASE 1: SUCCESS #} {% if success %}
+    <div class="result-icon success">✓</div>
+    <h1 class="result-title">Thank You For Your Order!</h1>
+    <p class="result-message">
+      Your payment was processed successfully.
+      <br />
+      <strong>Total Paid:</strong> ${{ "%.2f"|format(total) }}
+      <br />
+      <strong>Remaining Balance:</strong> ${{ "%.2f"|format(balance) }}
+    </p>
+    <a href="{{ url_for('checkout') }}" class="action-btn btn-success">
+      Continue Shopping
+    </a>
+
+    {# CASE 2: FAILURE #} {% else %}
+    <div class="result-icon fail">✕</div>
+    <h1 class="result-title">Payment Unsuccessful</h1>
+    <p class="result-message">
+      Unfortunately, we were unable to process your transaction.
+      <br />
+      <strong>Reason:</strong> {{ message }}
+    </p>
+    <a href="{{ url_for('checkout') }}" class="action-btn btn-fail">
+      Return to Checkout
+    </a>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

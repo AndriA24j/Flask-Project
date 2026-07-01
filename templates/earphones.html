@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block title %}My Website{% endblock %} {% block
+styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/category.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="s1">
+  <div class="black">
+    <h1>EARPHONES</h1>
+  </div>
+</section>
+<section class="sh2">
+  <div class="wrapper">
+    <div class="prod">
+      <div class="pic">
+        <img
+          src="{{ url_for('static', filename='assets/product-yx1-earphones/desktop/image-category-page-preview.jpg') }}"
+          alt=""
+        />
+      </div>
+      <div class="info">
+        <span>NEW PRODUCT</span>
+        <h2>YX1 WIRELESS EARPHONES</h2>
+        <p>
+          Tailor your listening experience with bespoke dynamic drivers from the
+          new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even
+          in noisy environments with its active noise cancellation feature.
+        </p>
+        <button>
+          <a
+            href="{{ url_for('product', slug='yx1-wireless') }}"
+            class="product-item"
+            >See Product</a
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="s3">
+  <div class="card-list">
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-headphones.png') }}"
+        alt=""
+      />
+      <h2>HEADPHONES</h2>
+      <a href="{{ url_for('headphones') }}">SHOP</a>
+    </div>
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-speakers.png') }}"
+        alt=""
+      />
+      <h2>SPEAKERS</h2>
+      <a href="{{ url_for('speakers') }}">SHOP</a>
+    </div>
+    <div class="card">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-category-thumbnail-earphones.png') }}"
+        alt=""
+      />
+      <h2>EARPHONES</h2>
+      <a href="{{ url_for('earphones') }}">SHOP</a>
+    </div>
+  </div>
+</section>
+<section class="s5">
+  <div class="container">
+    <div class="text">
+      <h3>Bringing you the <span>best</span> audio gear</h3>
+      <p>
+        Located at the heart of New York City, Audiophile is the premier store
+        for high end headphones, earphones, speakers, and audio accessories. We
+        have a large showroom and luxury demonstration rooms available for you
+        to browse and experience a wide range of our products. Stop by our store
+        to meet some of the fantastic people who make Audiophile the best place
+        to buy your portable audio equipment.
+      </p>
+    </div>
+    <div class="pic">
+      <img
+        src="{{ url_for('static', filename='assets/shared/desktop/image-best-gear.jpg') }}"
+        alt="gear"
+      />
+    </div>
+  </div>
+</section>
+{%endblock%}

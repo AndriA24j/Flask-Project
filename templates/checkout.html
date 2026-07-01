@@ -1,0 +1,160 @@
+{% extends 'base.html' %} {% block title %}My Website{% endblock %} {% block
+styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/checkout.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<main class="checkout-page">
+  <form class="checkout-grid" method="POST" action="{{ url_for('checkout') }}">
+    <section class="form-panel">
+      <h1>Checkout</h1>
+
+      <fieldset>
+        <p class="section-title">Contact Information</p>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="fullName">Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Alexei Ward"
+              required
+            />
+          </div>
+          <div class="field full">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="alexei@mail.com"
+              required
+            />
+          </div>
+          <div class="field full">
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="+1 202-555-0136"
+              required
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <p class="section-title">Shipping Info</p>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="address">Street Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="1137 Williams Avenue"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              placeholder="New York"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              placeholder="United States"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="postal">ZIP Code</label>
+            <input
+              type="text"
+              id="postal"
+              name="postal"
+              placeholder="10001"
+              required
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <p class="section-title">Payment Details</p>
+        <div class="payment-options">
+          <label class="payment-option selected" for="pay-card">
+            <input
+              type="radio"
+              id="pay-card"
+              name="payment"
+              value="card"
+              checked
+            />
+            Credit Card
+          </label>
+          <label class="payment-option" for="pay-cod">
+            <input type="radio" id="pay-cod" name="payment" value="cod" />
+            Cash on Delivery
+          </label>
+        </div>
+
+        <div class="field-grid field-grid--payment" style="margin-top: 24px">
+          <div class="field">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+            />
+          </div>
+          <div class="field">
+            <label for="cardPin">PIN</label>
+            <input type="text" id="cardPin" name="cardPin" placeholder="1234" />
+          </div>
+        </div>
+
+        <div class="cod-note">
+          <p>
+            The 'Cash on Delivery' option enables you to pay in cash when our
+            delivery courier arrives at your residence. Just make sure your
+            address is correct so that your order will not be cancelled.
+          </p>
+        </div>
+      </fieldset>
+    </section>
+
+    <aside class="summary-panel">
+      <h2>Order Summary</h2>
+
+      {% for id, item in cart.items() %}
+      <div class="cart-item">
+        <div class="cart-item__left">
+          <div>
+            <p class="cart-item__name">{{ item.name }}</p>
+            <p class="cart-item__price">${{ item.price }}</p>
+          </div>
+        </div>
+
+        <span class="cart-item__qty">x{{ item.qty }}</span>
+      </div>
+      <button type="submit" class="checkout-btn">Complete Purchase</button>
+      {% endfor %}
+    </aside>
+  </form>
+</main>
+{% endblock %}

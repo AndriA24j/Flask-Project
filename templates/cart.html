@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %}Cart{% endblock %} {% block styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/cart.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<div class="cart-container">
+  <p class="balance">Balance: ${{ "%.2f"|format(balance) }}</p>
+  <h1 class="title">Your Cart</h1>
+
+  {% if cart %}
+
+  <div class="cart-items">
+    {% for id, item in cart.items() %}
+    <div class="cart-item">
+      <div class="item-info">
+        <h3>{{ item.name }}</h3>
+        <p class="price">${{ item.price }}</p>
+      </div>
+
+      <div class="qty">
+        <span>Qty: {{ item.qty }}</span>
+      </div>
+
+      <div class="subtotal">${{ item.price * item.qty }}</div>
+
+      <a href="{{ url_for('remove_from_cart', id=id) }}" class="remove">
+        Remove
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="cart-summary">
+    <h2>Total</h2>
+    <p class="total">${{ total }}</p>
+
+    <a href="{{ url_for('checkout') }}" class="checkout-btn"> Checkout </a>
+  </div>
+
+  {% else %}
+  <p class="empty">Your cart is empty 🛒</p>
+  {% endif %}
+</div>
+
+{% endblock %}

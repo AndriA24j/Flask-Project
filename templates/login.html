@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block styles
+%}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/auth.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<div class="log-wrap">
+  <div class="card1">
+    <div class="logo">
+      <div class="logo-icon">
+        <img
+          src="{{ url_for('static', filename='assets/shared/desktop/logo.svg') }}"
+          alt="logo"
+          width="100%"
+        />
+      </div>
+      <span class="logo-name">Spark</span>
+    </div>
+
+    <h1 class="heading">Welcome back</h1>
+    <p class="subheading">Sign in to your account</p>
+
+    <!-- 🔥 FORM START -->
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="field">
+        <label for="email">Email</label>
+        <div class="input-wrap">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="forgot-row">
+        <a href="{{ url_for('login') }}">Forgot password?</a>
+      </div>
+
+      <!-- 🔥 FIXED BUTTON -->
+      <button class="btn-primary" type="submit">Sign in</button>
+    </form>
+    <!-- FORM END -->
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-label">or</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <button class="btn-google" type="button">Continue with Google</button>
+
+    <p class="signup-row">No account? <a href="/register">Sign up</a></p>
+  </div>
+</div>
+
+{% endblock %}

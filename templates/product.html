@@ -1,0 +1,119 @@
+{% extends 'base.html' %} {% block title %}Product{% endblock %} {% block styles
+%}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/products.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<section class="s1">
+  <div class="back">
+    <a href="{{ url_for('techList') }}">
+      <span>Go Back</span>
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="left">
+      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            {% if product.image.startswith('/static/') or
+            product.image.startswith('http://') or
+            product.image.startswith('https://') %}
+            <img
+              src="{{ product.image }}"
+              class="d-block w-100"
+              alt="{{ product.name }}"
+            />
+            {% else %}
+            <img
+              src="{{ url_for('static', filename=product.image) }}"
+              class="d-block w-100"
+              alt="{{ product.name }}"
+            />
+            {% endif %}
+          </div>
+
+          {% for img in product.gallery %}
+          <div class="carousel-item">
+            {% if img.image.startswith('/static/') or
+            img.image.startswith('http://') or img.image.startswith('https://')
+            %}
+            <img
+              src="{{ img.image }}"
+              class="d-block w-100"
+              alt="Gallery Image"
+            />
+            {% else %}
+            <img
+              src="{{ url_for('static', filename=img.image) }}"
+              class="d-block w-100"
+              alt="Gallery Image"
+            />
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="right">
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <span>$ {{ product.price }}</span>
+
+      <form
+        class="product-actions"
+        action="{{ url_for('add_to_cart', product_id=product.id) }}"
+        method="POST"
+      >
+        <div class="quantity">
+          <button type="button" onclick="decreaseQty()">-</button>
+
+          <input type="number" id="qty" name="quantity" value="1" readonly />
+
+          <button type="button" onclick="increaseQty()">+</button>
+        </div>
+
+        <button type="submit">ADD TO CART</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="information">
+    <div class="features">
+      <h2>Features</h2>
+      <p>{{ product.features }}</p>
+    </div>
+
+    <div class="box">
+      <h2>In the box</h2>
+
+      {% for item in product.box_items %}
+      <div class="thin"><span>1x</span> {{ item.item }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+</section>
+
+{% endblock %}

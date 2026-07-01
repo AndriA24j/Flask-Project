@@ -1,0 +1,152 @@
+{% extends 'base.html' %} {% block title %}My Website{% endblock %} {% block
+styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/auth.css') }}"
+/>
+{% endblock %} {% block content %}
+
+<div class="wrap">
+  <div class="card">
+    <div class="logo">
+      <div class="logo-icon">
+        <img
+          src="{{ url_for('static', filename='assets/shared/desktop/logo.svg') }}"
+          alt="logo"
+          width="100%"
+        />
+      </div>
+      <span class="logo-name">Spark</span>
+    </div>
+
+    <h1 class="heading">Create an account</h1>
+    <p class="subheading">Start your journey today</p>
+
+    <!-- 🔥 IMPORTANT: FORM START -->
+    <form method="POST" action="{{ url_for('register') }}">
+      <div class="field-row">
+        <div class="field">
+          <label for="first-name">First name</label>
+          <div class="input-wrap">
+            <img
+              src="{{ url_for('static', filename='assets/shared/desktop/person.png') }}"
+              alt=""
+            />
+            <input
+              type="text"
+              id="first-name"
+              name="first_name"
+              placeholder="Jane"
+              autocomplete="given-name"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="last-name">Last name</label>
+          <div class="input-wrap">
+            <img
+              src="{{ url_for('static', filename='assets/shared/desktop/person.png') }}"
+              alt=""
+            />
+            <input
+              type="text"
+              id="last-name"
+              name="last_name"
+              placeholder="Doe"
+              autocomplete="family-name"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <div class="input-wrap">
+          <img
+            src="{{ url_for('static', filename='assets/shared/desktop/mail.png') }}"
+            alt=""
+          />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <img
+            src="{{ url_for('static', filename='assets/shared/desktop/padlock.png') }}"
+            alt=""
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="At least 8 characters"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="confirm-password">Confirm password</label>
+        <div class="input-wrap">
+          <img
+            src="{{ url_for('static', filename='assets/shared/desktop/padlock.png') }}"
+            alt=""
+          />
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            placeholder="Repeat your password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="terms-row">
+        <input type="checkbox" id="terms" required />
+        <label for="terms">
+          I agree to the
+          <a href="https://example.com/terms" target="_blank" rel="noreferrer"
+            >Terms of Service</a
+          >
+          and
+          <a href="https://example.com/privacy" target="_blank" rel="noreferrer"
+            >Privacy Policy</a
+          >
+        </label>
+      </div>
+
+      <!-- 🔥 FIXED BUTTON -->
+      <button class="btn-primary" type="submit">Create account</button>
+    </form>
+    <!-- FORM END -->
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-label">or</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <button class="btn-google" type="button">Sign up with Google</button>
+
+    <p class="signin-row">
+      Already have an account? <a href="/login">Sign in</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

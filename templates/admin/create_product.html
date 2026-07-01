@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/create.css') }}"
+    />
+  </head>
+  <body>
+    <div class="card">
+      <h1>Create Product</h1>
+
+      <form method="POST">
+        <!-- MAIN IMAGE -->
+        <div class="form-group">
+          <label>Main Image</label>
+          <input
+            type="text"
+            name="image"
+            placeholder="assets/image.jpg"
+            required
+          />
+        </div>
+
+        <!-- NAME -->
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" required />
+        </div>
+
+        <!-- SLUG -->
+        <div class="form-group">
+          <label>Slug</label>
+          <input type="text" name="slug" required />
+        </div>
+
+        <!-- PRICE -->
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" name="price" required />
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description"></textarea>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="form-group">
+          <label>Features</label>
+          <textarea name="features"></textarea>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="form-group">
+          <label>Gallery Images</label>
+
+          <div id="gallery-container">
+            <input
+              class="gallery-input"
+              type="text"
+              name="gallery"
+              placeholder="assets/image1.jpg"
+            />
+          </div>
+
+          <button type="button" class="add-btn" onclick="addImage()">
+            + Add Image
+          </button>
+        </div>
+
+        <button type="submit" class="submit-btn">Create Product</button>
+      </form>
+    </div>
+
+    <script>
+      function addImage() {
+        const container = document.getElementById("gallery-container");
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = "gallery";
+        input.placeholder = "assets/image.jpg";
+        input.classList.add("gallery-input");
+
+        container.appendChild(input);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background-color: #f1f1f1; /* Audiophile light grey background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 60px 20px;
+  color: #000000;
+}
+
+/* ==========================================================================
+   CARD CONTAINER
+   ========================================================================== */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 650px; /* Perfect width for an elegant single-column form */
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+
+.card h1 {
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 35px;
+  color: #101010;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 15px;
+}
+
+/* ==========================================================================
+   VERTICAL FORM LAYOUT
+   ========================================================================== */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #101010;
+  letter-spacing: 0.5px;
+}
+
+/* Form Inputs & Textareas */
+input[type="text"],
+input[type="number"],
+textarea,
+.gallery-input {
+  width: 100%;
+  padding: 16px 24px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #999999;
+}
+
+/* Interactive Focus States */
+input:focus,
+textarea:focus {
+  border-color: #d87d4a; /* Signature Audiophile Orange */
+  box-shadow: 0 0 0 2px rgba(216, 125, 74, 0.2);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Dynamic Gallery Multi-Inputs */
+#gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   BUTTONS & ALIGNMENT
+   ========================================================================== */
+button {
+  font-family: "Manrope", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+/* Add Image Button (Dashed secondary style) */
+.add-btn {
+  background-color: transparent;
+  border: 2px dashed #d87d4a;
+  color: #d87d4a;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.add-btn:hover {
+  background-color: rgba(216, 125, 74, 0.05);
+  border-style: solid;
+}
+
+/* Centered Submit Button Container Style */
+.submit-btn {
+  background-color: #d87d4a; /* Audiophile Orange */
+  color: #ffffff;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 8px;
+  font-size: 15px;
+  width: auto;
+  min-width: 260px;
+
+  /* These properties center the button inside the flex form container */
+  align-self: center;
+  margin-top: 25px;
+}
+
+.submit-btn:hover {
+  background-color: #fbaf85; /* Lightened focus orange */
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 580px) {
+  .card {
+    padding: 30px 20px;
+  }
+
+  .card h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  .submit-btn {
+    width: 100%; /* Spans full width on tight mobile screens for better UX */
+  }
+}

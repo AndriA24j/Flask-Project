@@ -1,0 +1,115 @@
+{% extends 'base.html' %} {% block title %}Products{% endblock %} {% block
+styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/tech_list.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="products-page">
+  <div class="top-bar">
+    <h1>Explore Products</h1>
+
+    <div class="right-tools">
+      <input type="text" placeholder="Search products..." />
+
+      <select>
+        <option>Newest</option>
+        <option>Price ↑</option>
+        <option>Price ↓</option>
+        <option>Name A-Z</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h3 class="title">Filters</h3>
+
+      <div class="section">
+        <h4>AVAILABILITY</h4>
+        <label>
+          <input type="checkbox" name="in_stock" checked />
+          In Stock Only
+        </label>
+        <label>
+          <input type="checkbox" name="on_sale" />
+          Special Offers / Sale
+        </label>
+      </div>
+
+      <div class="section">
+        <h4>CATEGORY</h4>
+        <label><input type="checkbox" /> Headphones</label>
+        <label><input type="checkbox" /> Earphones</label>
+        <label><input type="checkbox" /> Speakers</label>
+        <label><input type="checkbox" /> Amplifiers & DACs</label>
+        <label><input type="checkbox" /> Accessories</label>
+      </div>
+
+      <div class="section">
+        <h4>PRICE RANGE</h4>
+        <div class="price-box">
+          <input type="number" placeholder="Min ($)" min="0" />
+          <input type="number" placeholder="Max ($)" min="0" />
+        </div>
+      </div>
+
+      <div class="section">
+        <h4>CONNECTIVITY</h4>
+        <label><input type="checkbox" /> Wireless (Bluetooth 5.2/5.3)</label>
+        <label><input type="checkbox" /> Wired (3.5mm / 6.3mm)</label>
+        <label><input type="checkbox" /> USB-C Digital Balanced</label>
+        <label><input type="checkbox" /> True Wireless (TWS)</label>
+      </div>
+
+      <div class="section">
+        <h4>BRAND</h4>
+        <label><input type="checkbox" /> Audiophile Labs</label>
+        <label><input type="checkbox" /> Sony</label>
+        <label><input type="checkbox" /> Sennheiser</label>
+        <label><input type="checkbox" /> Bose</label>
+        <label><input type="checkbox" /> Beyerdynamic</label>
+      </div>
+
+      <div class="section">
+        <h4>CUSTOMER RATING</h4>
+        <label><input type="checkbox" /> 4.5 ★ & Up</label>
+        <label><input type="checkbox" /> 4.0 ★ & Up</label>
+      </div>
+    </aside>
+
+    <main class="products">
+      {% for product in products %}
+      <a
+        href="{{ url_for('product', slug=product.slug) }}"
+        class="product-card"
+      >
+        <div class="image">
+          {% if product.image.startswith('/static/') %}
+          <img src="{{ product.image }}" alt="{{ product.name }}" />
+          {% else %}
+          <img
+            src="{{ url_for('static', filename=product.image) }}"
+            alt="{{ product.name }}"
+          />
+          {% endif %}
+        </div>
+
+        <div class="card-info">
+          <h3>{{ product.name }}</h3>
+          <span class="price">${{ product.price }}</span>
+
+          <button
+            onclick="event.preventDefault()"
+            class="cart-btn"
+            type="button"
+          >
+            See Product
+          </button>
+        </div>
+      </a>
+      {% endfor %}
+    </main>
+  </div>
+</section>
+{% endblock %}
