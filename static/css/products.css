@@ -385,3 +385,35 @@
     aspect-ratio: 1 / 1;
   }
 }
+
+@media (max-width: 1024px) {
+  .s1,
+  .sh2,
+  .s3,
+  .s5 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .wrap,
+  .information,
+  .gallery,
+  .liked,
+  .card-list,
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-list {
+    gap: 32px;
+  }
+
+  .product-actions {
+    justify-content: center;
+  }
+
+  .container {
+    padding: 30px 20px;
+  }
+}

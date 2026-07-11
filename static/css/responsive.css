@@ -1,0 +1,380 @@
+/* Global responsive overrides for the Audiophile project */
+
+html,
+body {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: inherit;
+}
+
+main {
+  width: 100%;
+}
+
+img,
+picture,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+/* Tablet and small laptop adjustments */
+@media (max-width: 1024px) {
+  .s1,
+  .s2,
+  .s3,
+  .s4,
+  .s5,
+  .sh2,
+  .navdiv,
+  .profile-page,
+  .products-page,
+  .checkout-page {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .wrap,
+  .prod,
+  .prod1,
+  .card-list,
+  .information,
+  .gallery,
+  .liked,
+  .container,
+  .profile-hero,
+  .top-bar,
+  .layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .card,
+  .product-card,
+  .cards,
+  .cart-container,
+  .summary-panel,
+  .form-panel,
+  .page,
+  .sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .long-card,
+  .long-card1,
+  .long-card2,
+  .container,
+  .product-card .image,
+  .prod img,
+  .prod1 img,
+  .right img,
+  .long-card img,
+  .long-image img,
+  .heigh img,
+  .wid img,
+  .liked img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prod .info,
+  .prod1 .info,
+  .text,
+  .features,
+  .sidebar,
+  .profile-container,
+  .checkout-grid {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .products-page .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .products-page .sidebar {
+    position: static;
+    margin-bottom: 24px;
+  }
+
+  .products-page .top-bar {
+    align-items: stretch;
+  }
+}
+
+/* Mobile navigation and layout fixes */
+@media (max-width: 900px) {
+  .navdiv {
+    position: relative;
+    z-index: 20;
+  }
+
+  .nav-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .nav-toggle:hover,
+  .nav-toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-toggle-bar {
+    width: 22px;
+    height: 2.5px;
+    margin: 3px 0;
+    background: #ffffff;
+    border-radius: 999px;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease,
+      background 0.25s ease;
+  }
+
+  .nav-panel {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(14, 14, 14, 0.98);
+    padding: 22px 18px;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease;
+  }
+
+  .navdiv.nav-open .nav-panel,
+  .nav-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .navdiv.nav-open .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .navdiv.nav-open .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navdiv.nav-open .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-panel,
+  .menu,
+  .acc {
+    flex-direction: column !important;
+    width: 100% !important;
+    align-items: stretch;
+  }
+
+  .nav-panel {
+    justify-content: flex-start;
+  }
+
+  .menu {
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  .menu li,
+  .acc div {
+    width: 100%;
+  }
+
+  .menu a,
+  .acc a {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    text-align: left;
+  }
+
+  .menu a {
+    color: #ffffff;
+  }
+
+  .acc {
+    gap: 12px;
+  }
+
+  .acc a {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+  }
+
+  .s1,
+  .s2,
+  .s3,
+  .s4,
+  .s5,
+  .sh2,
+  .wrap,
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  footer {
+    padding: 30px 16px;
+  }
+
+  .foot {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .foot1,
+  .foot-menu {
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .long-card,
+  .long-card1,
+  .long-card2 {
+    gap: 24px;
+  }
+
+  .product-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .quantity input {
+    width: 56px;
+  }
+}
+
+/* Smaller mobile adjustments */
+@media (max-width: 768px) {
+  .card,
+  .product-card,
+  .cart-container,
+  .summary-panel,
+  .form-panel,
+  .page,
+  .section,
+  .sidebar {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .card-list {
+    gap: 24px;
+  }
+
+  .long-card,
+  .long-card1,
+  .long-card2,
+  .product-actions,
+  .profile-hero {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .product-actions > button,
+  .checkout-btn,
+  .submit-btn,
+  .btn-primary,
+  .cart-btn,
+  .filter-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profile-hero {
+    text-align: center;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-header,
+  .product-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cart-container,
+  .profile-container,
+  .checkout-page,
+  .products-page,
+  .product-actions,
+  .card {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .btn-primary,
+  .checkout-btn,
+  .submit-btn,
+  .cart-btn,
+  .filter-btn {
+    padding: 14px 16px;
+  }
+
+  .top-bar,
+  .profile-hero,
+  .order-header,
+  .product-row,
+  .field-row {
+    align-items: stretch;
+    text-align: left;
+  }
+}

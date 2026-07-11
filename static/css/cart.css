@@ -143,6 +143,31 @@ body {
     width: 100%;
   }
 }
+
+@media (max-width: 520px) {
+  .cart-container {
+    margin: 16px 12px;
+    padding: 16px;
+  }
+
+  .cart-item {
+    padding: 14px;
+  }
+
+  .item-info h3 {
+    font-size: 1rem;
+  }
+
+  .subtotal,
+  .price,
+  .qty {
+    font-size: 0.95rem;
+  }
+
+  .checkout-btn {
+    padding: 14px 16px;
+  }
+}
 body {
   font-family: Arial, sans-serif;
   background: #f6f6f6;

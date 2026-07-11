@@ -405,3 +405,49 @@
     height: auto;
   }
 }
+
+@media (max-width: 1024px) {
+  .s2,
+  .s3,
+  .s4,
+  .s5 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .wrap {
+    gap: 40px;
+  }
+
+  .right img {
+    width: min(100%, 420px);
+    height: auto;
+  }
+
+  .card-list {
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 327px;
+  }
+
+  .long-card,
+  .long-card1,
+  .long-card2,
+  .container {
+    width: 100%;
+  }
+
+  .long-card img {
+    width: min(100%, 300px);
+    height: auto;
+  }
+
+  .container {
+    padding: 24px 20px;
+  }
+}
