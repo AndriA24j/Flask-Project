@@ -63,6 +63,24 @@ styles %}
       </div>
 
       <div class="field">
+        <label for="username">Username</label>
+        <div class="input-wrap">
+          <img
+            src="{{ url_for('static', filename='assets/shared/desktop/person.png') }}"
+            alt=""
+          />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="yourusername"
+            autocomplete="username"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
         <label for="email">Email</label>
         <div class="input-wrap">
           <img

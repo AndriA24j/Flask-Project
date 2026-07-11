@@ -1,14 +1,13 @@
 import os
 from ext import app, db
-from models import User, Product, ProductGallery, ProductBoxItem, Cart, CartItem
-from flask import render_template, request, redirect, flash, url_for, session
+from models import User, Product, ProductGallery, ProductBoxItem, Cart, CartItem,OrderItem,Order
+from flask import render_template, request, redirect, flash, url_for, session, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Admin password now comes from an environment variable instead of being
-# hardcoded in source. Set ADMIN_PASSWORD in your environment (.env, host
-# config, etc). Falls back to a dev-only default so local runs don't break,
-# but this fallback should NEVER be relied on in production.
+profile_bp = Blueprint("profile", __name__)
+
 ADMIN_PASSWORD = "bermudi"
+
 
 
 @app.route('/')
@@ -277,33 +276,82 @@ def logout():
     flash("გამოხვედი ანგარიშიდან")
     return redirect(url_for("home"))
 
-
-@app.route('/profile')
+@app.route("/profile", methods=["GET", "POST"])
 def profile():
-    return render_template('profile.html')
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+
+    user = User.query.get(session["user_id"])
+
+
+    if request.method == "POST":
+
+        # Update profile information
+
+        if request.form.get("country"):
+            user.country = request.form.get("country")
+
+        if request.form.get("city"):
+            user.city = request.form.get("city")
+
+        if request.form.get("street"):
+            user.street = request.form.get("street")
+
+        if request.form.get("age"):
+            user.age = int(request.form.get("age"))
+
+        if request.form.get("phone"):
+            user.phone = request.form.get("phone")
+
+
+        db.session.commit()
+
+        return redirect(url_for("profile"))
+
+
+
+    return render_template(
+        "profile.html",
+        user=user,
+        orders=user.orders
+    )
 
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        username = request.form.get("username")
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         email = request.form.get("email")
         password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
 
-        if not first_name or not last_name or not email or not password:
+        if not username or not first_name or not last_name or not email or not password or not confirm_password:
             flash("ყველა ველი უნდა შეავსო")
             return redirect(url_for("register"))
 
+        if password != confirm_password:
+            flash("პაროლები ერთმანეთს არ ემთხვევა")
+            return redirect(url_for("register"))
+
         user_exists = User.query.filter_by(email=email).first()
+        username_exists = User.query.filter_by(username=username).first()
 
         if user_exists:
             flash("ეს email უკვე გამოყენებულია")
             return redirect(url_for("register"))
 
+        if username_exists:
+            flash("ეს მომხმარებლის სახელი უკვე გამოყენებულია")
+            return redirect(url_for("register"))
+
         hashed_password = generate_password_hash(password)
 
         new_user = User(
+            username=username,
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -324,74 +372,85 @@ def speakers():
     return render_template('speakers.html')
 
 
-@app.route("/tech")
+@app.route("/techList")
 def techList():
-    products = Product.query.all()
+
+    query = Product.query
+
+
+    # SEARCH
+
+    search = request.args.get("search")
+
+    if search:
+
+        query = query.filter(
+            Product.name.ilike(f"%{search}%")
+        )
+
+
+
+    # MIN PRICE
+
+    min_price = request.args.get("min_price")
+
+    if min_price:
+
+        query = query.filter(
+            Product.price >= int(min_price)
+        )
+
+
+
+    # MAX PRICE
+
+    max_price = request.args.get("max_price")
+
+    if max_price:
+
+        query = query.filter(
+            Product.price <= int(max_price)
+        )
+
+
+
+    # SORT
+
+    sort = request.args.get("sort")
+
+
+    if sort == "price_low":
+
+        query = query.order_by(
+            Product.price.asc()
+        )
+
+
+    elif sort == "price_high":
+
+        query = query.order_by(
+            Product.price.desc()
+        )
+
+
+    elif sort == "name":
+
+        query = query.order_by(
+            Product.name.asc()
+        )
+
+
+
+    products = query.all()
+
+
+
     return render_template(
-        "tech_list.html",
+        "tech_List.html",
         products=products
     )
 
-@app.route("/checkout", methods=["GET", "POST"])
-def checkout():
-    user_id = session.get("user_id")
-    if not user_id:
-        return redirect(url_for("login"))
 
-    user = User.query.get(user_id)
-    user_cart = Cart.query.filter_by(user_id=user_id).first()
-
-    cart_dict = {}
-    subtotal = 0
-
-    if user_cart:
-        for item in user_cart.items:
-            if item.product:
-                subtotal += item.product.price * item.quantity
-
-                cart_dict[str(item.id)] = {
-                    "name": item.product.name,
-                    "price": item.product.price,
-                    "qty": item.quantity
-                }
-
-    shipping = 0 if subtotal >= 100 else 15
-    total = subtotal + shipping
-
-    # ---------------- POST ----------------
-    if request.method == "POST":
-
-        if user.balance >= total:
-            user.balance -= total
-
-            if user_cart:
-                CartItem.query.filter_by(cart_id=user_cart.id).delete()
-
-            db.session.commit()
-
-            session["last_order"] = {
-                "success": True,
-                "total": total,
-                "balance": user.balance
-            }
-
-        else:
-            session["last_order"] = {
-                "success": False,
-                "message": "Not enough balance"
-            }
-
-        # 🔥 IMPORTANT FIX (THIS WAS MISSING)
-        return redirect(url_for("checkout_result"))
-
-    # ---------------- GET ----------------
-    return render_template(
-        "checkout.html",
-        cart=cart_dict,
-        total=total,
-        subtotal=subtotal,
-        shipping=shipping
-    )
 
 @app.route("/checkout_result")
 def checkout_result():

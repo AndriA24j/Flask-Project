@@ -1,103 +1,105 @@
-{% extends 'base.html' %} {% block title %}Products{% endblock %} {% block
+{% extends 'base.html' %} {% block title %} Products {% endblock %} {% block
 styles %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/tech_list.css') }}"
 />
 {% endblock %} {% block content %}
+
 <section class="products-page">
   <div class="top-bar">
     <h1>Explore Products</h1>
 
     <div class="right-tools">
-      <input type="text" placeholder="Search products..." />
-
-      <select>
-        <option>Newest</option>
-        <option>Price ↑</option>
-        <option>Price ↓</option>
-        <option>Name A-Z</option>
-      </select>
+      <input
+        type="text"
+        name="search"
+        form="filter-form"
+        placeholder="Search products..."
+        value="{{ request.args.get('search','') }}"
+      />
     </div>
   </div>
 
   <div class="layout">
-    <aside class="sidebar">
-      <h3 class="title">Filters</h3>
+    <form method="GET" action="{{ request.path }}" id="filter-form">
+      <aside class="sidebar">
+        <h3 class="title">Filters</h3>
 
-      <div class="section">
-        <h4>AVAILABILITY</h4>
-        <label>
-          <input type="checkbox" name="in_stock" checked />
-          In Stock Only
-        </label>
-        <label>
-          <input type="checkbox" name="on_sale" />
-          Special Offers / Sale
-        </label>
-      </div>
+        <div class="section">
+          <h4>PRICE</h4>
 
-      <div class="section">
-        <h4>CATEGORY</h4>
-        <label><input type="checkbox" /> Headphones</label>
-        <label><input type="checkbox" /> Earphones</label>
-        <label><input type="checkbox" /> Speakers</label>
-        <label><input type="checkbox" /> Amplifiers & DACs</label>
-        <label><input type="checkbox" /> Accessories</label>
-      </div>
+          <div class="price-box">
+            <input
+              type="number"
+              name="min_price"
+              placeholder="Min ($)"
+              min="0"
+              value="{{ request.args.get('min_price','') }}"
+            />
 
-      <div class="section">
-        <h4>PRICE RANGE</h4>
-        <div class="price-box">
-          <input type="number" placeholder="Min ($)" min="0" />
-          <input type="number" placeholder="Max ($)" min="0" />
+            <input
+              type="number"
+              name="max_price"
+              placeholder="Max ($)"
+              min="0"
+              value="{{ request.args.get('max_price','') }}"
+            />
+          </div>
         </div>
-      </div>
 
-      <div class="section">
-        <h4>CONNECTIVITY</h4>
-        <label><input type="checkbox" /> Wireless (Bluetooth 5.2/5.3)</label>
-        <label><input type="checkbox" /> Wired (3.5mm / 6.3mm)</label>
-        <label><input type="checkbox" /> USB-C Digital Balanced</label>
-        <label><input type="checkbox" /> True Wireless (TWS)</label>
-      </div>
+        <div class="section">
+          <h4>SORT BY</h4>
 
-      <div class="section">
-        <h4>BRAND</h4>
-        <label><input type="checkbox" /> Audiophile Labs</label>
-        <label><input type="checkbox" /> Sony</label>
-        <label><input type="checkbox" /> Sennheiser</label>
-        <label><input type="checkbox" /> Bose</label>
-        <label><input type="checkbox" /> Beyerdynamic</label>
-      </div>
+          <select name="sort">
+            <option value="">Recommended</option>
 
-      <div class="section">
-        <h4>CUSTOMER RATING</h4>
-        <label><input type="checkbox" /> 4.5 ★ & Up</label>
-        <label><input type="checkbox" /> 4.0 ★ & Up</label>
-      </div>
-    </aside>
+            {% if request.args.get('sort') == 'price_low' %}
+            <option value="price_low" selected>Price: Low to High</option>
+            {% else %}
+            <option value="price_low">Price: Low to High</option>
+            {% endif %} {% if request.args.get('sort') == 'price_high' %}
+            <option value="price_high" selected>Price: High to Low</option>
+            {% else %}
+            <option value="price_high">Price: High to Low</option>
+            {% endif %} {% if request.args.get('sort') == 'name' %}
+            <option value="name" selected>Name A-Z</option>
+            {% else %}
+            <option value="name">Name A-Z</option>
+            {% endif %}
+          </select>
+        </div>
+
+        <button class="filter-btn">Apply Filters</button>
+      </aside>
+    </form>
 
     <main class="products">
-      {% for product in products %}
+      {% if products %} {% for product in products %}
+
       <a
         href="{{ url_for('product', slug=product.slug) }}"
         class="product-card"
       >
         <div class="image">
           {% if product.image.startswith('/static/') %}
+
           <img src="{{ product.image }}" alt="{{ product.name }}" />
+
           {% else %}
+
           <img
             src="{{ url_for('static', filename=product.image) }}"
             alt="{{ product.name }}"
           />
+
           {% endif %}
         </div>
 
         <div class="card-info">
           <h3>{{ product.name }}</h3>
-          <span class="price">${{ product.price }}</span>
+
+          <span class="price"> ${{ product.price }} </span>
 
           <button
             onclick="event.preventDefault()"
@@ -108,8 +110,14 @@ styles %}
           </button>
         </div>
       </a>
-      {% endfor %}
+
+      {% endfor %} {% else %}
+
+      <div class="no-products">No products found.</div>
+
+      {% endif %}
     </main>
   </div>
 </section>
+
 {% endblock %}
