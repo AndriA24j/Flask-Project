@@ -452,7 +452,7 @@ def techList():
 
 
 
-@app.route("/checkout_result")
+@app.route("/checkout_result", endpoint="checkout_result")
 def checkout_result():
     result = session.get("last_order")
 
@@ -465,4 +465,105 @@ def checkout_result():
         total=result.get("total"),
         balance=result.get("balance"),
         message=result.get("message")
+    )
+
+
+@app.route("/checkout", methods=["GET", "POST"], endpoint="checkout")
+def checkout():
+    user_id = session.get("user_id")
+
+    print("USER ID FROM SESSION:", user_id)
+
+    # User is not logged in
+    if not user_id:
+        return redirect(url_for("login"))
+
+    # Get user safely
+    user = User.query.get(user_id)
+
+    print("USER FROM DATABASE:", user)
+
+    if not user:
+        return "User does not exist. Session has invalid user_id.", 500
+
+    # Get user's cart
+    user_cart = Cart.query.filter_by(user_id=user_id).first()
+
+    print("USER CART:", user_cart)
+
+    if not user_cart or not user_cart.items:
+        flash("Your cart is empty.")
+        return redirect(url_for("view_cart"))
+
+    cart = {}
+    total = 0
+
+    # Build cart data
+    for item in user_cart.items:
+        if item.product:
+            cart[item.id] = {
+                "name": item.product.name,
+                "price": item.product.price,
+                "qty": item.quantity
+            }
+
+            total += item.product.price * item.quantity
+
+    print("CART:", cart)
+    print("TOTAL:", total)
+
+    # When user clicks Complete Purchase
+    if request.method == "POST":
+
+        if user.balance < total:
+            session["last_order"] = {
+                "success": False,
+                "message": "Insufficient balance."
+            }
+
+            return redirect(url_for("checkout_result"))
+
+        # Create order
+        order = Order(
+            user_id=user.id,
+            total_price=total
+        )
+
+        db.session.add(order)
+        db.session.flush()
+
+        # Add order items
+        for item in user_cart.items:
+            if item.product:
+                order_item = OrderItem(
+                    order_id=order.id,
+                    product_id=item.product_id,
+                    quantity=item.quantity,
+                    price=item.product.price
+                )
+
+                db.session.add(order_item)
+
+        # Remove money
+        user.balance -= total
+
+        # Clear cart
+        CartItem.query.filter_by(cart_id=user_cart.id).delete()
+
+        db.session.commit()
+
+        session["last_order"] = {
+            "success": True,
+            "total": total,
+            "balance": user.balance
+        }
+
+        return redirect(url_for("checkout_result"))
+
+    # Show checkout page
+    return render_template(
+        "checkout.html",
+        cart=cart,
+        total=total,
+        balance=user.balance
     )
