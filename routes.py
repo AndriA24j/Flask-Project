@@ -242,46 +242,46 @@ def headphones():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
     if request.method == "POST":
-        email = request.form.get("email")
+
+        email = request.form.get("email", "").strip().lower()
         password = request.form.get("password")
 
-        print("LOGIN ATTEMPT")
-        print("EMAIL:", email)
 
         if not email or not password:
-            print("EMPTY FIELDS")
             flash("შეავსე ყველა ველი")
             return redirect(url_for("login"))
 
+
+
         user = User.query.filter_by(email=email).first()
 
-        print("USER FOUND:", user)
 
         if not user:
-            print("USER DOES NOT EXIST")
-            flash("მომხმარებელი ვერ მოიძებნა")
+            flash("ეს email არ არის რეგისტრირებული")
             return redirect(url_for("login"))
 
-        password_ok = check_password_hash(user.password, password)
 
-        print("PASSWORD OK:", password_ok)
 
-        if not password_ok:
-            print("WRONG PASSWORD")
+        if not check_password_hash(user.password, password):
             flash("პაროლი არასწორია")
             return redirect(url_for("login"))
+
+
 
         session["user_id"] = user.id
         session["user_name"] = user.first_name
         session["email"] = user.email
 
-        print("LOGIN SUCCESS:", user.id)
 
-        flash("წარმატებით შეხვედი")
+        flash(f"გამარჯობა {user.first_name}!")
         return redirect(url_for("home"))
 
+
     return render_template("login.html")
+
+
 
 @app.route("/logout")
 def logout():
@@ -335,34 +335,60 @@ def profile():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
+
     if request.method == "POST":
-        username = request.form.get("username")
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        email = request.form.get("email")
+
+        username = request.form.get("username", "").strip()
+        first_name = request.form.get("first_name", "").strip()
+        last_name = request.form.get("last_name", "").strip()
+        email = request.form.get("email", "").strip().lower()
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
 
+
+        # Empty fields
         if not username or not first_name or not last_name or not email or not password or not confirm_password:
             flash("ყველა ველი უნდა შეავსო")
             return redirect(url_for("register"))
 
+
+        # Email validation
+        if "@" not in email or "." not in email:
+            flash("შეიყვანე სწორი email")
+            return redirect(url_for("register"))
+
+
+        # Password match
         if password != confirm_password:
             flash("პაროლები ერთმანეთს არ ემთხვევა")
             return redirect(url_for("register"))
 
+
+        # Password strength
+        if len(password) < 6:
+            flash("პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო")
+            return redirect(url_for("register"))
+
+
+        # Check existing email
         user_exists = User.query.filter_by(email=email).first()
-        username_exists = User.query.filter_by(username=username).first()
 
         if user_exists:
-            flash("ეს email უკვე გამოყენებულია")
+            flash("ეს email უკვე არსებობს. სცადე სხვა email.")
             return redirect(url_for("register"))
+
+
+        # Check username
+        username_exists = User.query.filter_by(username=username).first()
 
         if username_exists:
-            flash("ეს მომხმარებლის სახელი უკვე გამოყენებულია")
+            flash("ეს username უკვე დაკავებულია")
             return redirect(url_for("register"))
 
+
+
         hashed_password = generate_password_hash(password)
+
 
         new_user = User(
             username=username,
@@ -372,11 +398,14 @@ def register():
             password=hashed_password
         )
 
+
         db.session.add(new_user)
         db.session.commit()
 
-        flash("რეგისტრაცია წარმატებულია")
-        return redirect(url_for("home"))
+
+        flash("რეგისტრაცია წარმატებით დასრულდა. ახლა შეგიძლია შეხვიდე.")
+        return redirect(url_for("login"))
+
 
     return render_template("register.html")
 
