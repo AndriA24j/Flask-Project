@@ -246,17 +246,29 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        print("LOGIN ATTEMPT")
+        print("EMAIL:", email)
+
         if not email or not password:
+            print("EMPTY FIELDS")
             flash("შეავსე ყველა ველი")
             return redirect(url_for("login"))
 
         user = User.query.filter_by(email=email).first()
 
+        print("USER FOUND:", user)
+
         if not user:
+            print("USER DOES NOT EXIST")
             flash("მომხმარებელი ვერ მოიძებნა")
             return redirect(url_for("login"))
 
-        if not check_password_hash(user.password, password):
+        password_ok = check_password_hash(user.password, password)
+
+        print("PASSWORD OK:", password_ok)
+
+        if not password_ok:
+            print("WRONG PASSWORD")
             flash("პაროლი არასწორია")
             return redirect(url_for("login"))
 
@@ -264,17 +276,12 @@ def login():
         session["user_name"] = user.first_name
         session["email"] = user.email
 
+        print("LOGIN SUCCESS:", user.id)
+
         flash("წარმატებით შეხვედი")
         return redirect(url_for("home"))
 
     return render_template("login.html")
-
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    flash("გამოხვედი ანგარიშიდან")
-    return redirect(url_for("home"))
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
