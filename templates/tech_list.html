@@ -82,7 +82,9 @@ styles %}
         class="product-card"
       >
         <div class="image">
-          {% if product.image.startswith('/static/') %}
+          {% if product.image.startswith('/static/') or
+          product.image.startswith('http://') or
+          product.image.startswith('https://') %}
 
           <img src="{{ product.image }}" alt="{{ product.name }}" />
 
