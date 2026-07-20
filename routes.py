@@ -283,6 +283,13 @@ def login():
 
     return render_template("login.html")
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("გამოხვედი ანგარიშიდან")
+    return redirect(url_for("home"))
+
+
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
 
