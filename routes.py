@@ -460,7 +460,7 @@ def techList():
 
 
     return render_template(
-        "tech_List.html",
+        "tech_list.html",
         products=products
     )
 
